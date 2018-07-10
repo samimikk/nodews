@@ -2,6 +2,9 @@
 
 const Hapi = require('hapi');
 const Good = require('good');
+const Inert = require('inert');
+const Vision = require('vision');
+const HapiSwagger = require('hapi-swagger');
 const routes = require('./lib/routes');
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -16,6 +19,18 @@ const init = async function() {
     // Register logging modules
     await server.register([
         {
+            plugin: Inert
+        },{
+            plugin: Vision
+        },{
+            plugin: HapiSwagger,
+            options: {
+                info: {
+                    title: 'Workshop API documentation',
+                    version: '0.1.0'
+                }
+            }
+        },{
             plugin: Good,
             options: {
                 ops: {
