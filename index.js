@@ -2,26 +2,36 @@
 
 const Hapi = require('hapi');
 const Good = require('good');
-const Inert = require('inert');
-const Vision = require('vision');
 const HapiSwagger = require('hapi-swagger');
+
+require('dotenv').config();
+
 const routes = require('./lib/routes');
+const mongo = require('./lib/mongo');
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-const init = async function() {
+async function init() {
+    // Connect to database
+    await mongo.connect();
+
     // Force server to run on fixed port 8080
+
+    // Hint: If you end up having internal server errors, but nothing is shown
+    // in console, try adding the following option after port parameter:
+    // debug: { request: ['error'] }
+    
     const server = new Hapi.Server({
-        port: 8080    
+        port: 8080
     });
 
     // Register logging modules
     await server.register([
         {
-            plugin: Inert
+            plugin: require('inert')
         },{
-            plugin: Vision
+            plugin: require('vision')
         },{
             plugin: HapiSwagger,
             options: {
