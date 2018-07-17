@@ -8,11 +8,16 @@ require('dotenv').config();
 
 const routes = require('./lib/routes');
 const mongo = require('./lib/mongo');
+const health = require('./lib/health');
+const configMap = require('./lib/configmap');
 
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 //
 // :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 async function init() {
+    // Start fetching configmap in background (first attempt in 15s from start)
+    configMap.startFetchTimer();
+
     // Connect to database
     await mongo.connect();
 
@@ -23,7 +28,10 @@ async function init() {
     // debug: { request: ['error'] }
     
     const server = new Hapi.Server({
-        port: 8080
+        port: 8080,
+        load: {
+            sampleInterval: 1000
+        }
     });
 
     // Register logging modules
@@ -70,6 +78,7 @@ async function init() {
 
     // Register routes
     routes.register( server );
+    health.register( server );
 
     // Start server
     await server.start();

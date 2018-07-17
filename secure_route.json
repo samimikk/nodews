@@ -1,0 +1,19 @@
+{
+	"apiVersion": "v1",
+		"kind": "Route",
+		"metadata": {
+			"name": "nodejs"
+		},
+		"spec": {
+			"host": "nodejs-ldap_username.osdev.amb.fi",
+			"to": {
+				"kind": "Service",
+				"name": "nodejs"
+			},
+			"tls": {
+				"termination": "edge",
+				"key": "-----BEGIN PRIVATE KEY-----\nReplace this with your key data\n-----END PRIVATE KEY-----\n",
+				"certificate": "-----BEGIN CERTIFICATE-----\nReplace this with your data\n-----END CERTIFICATE-----\n"
+			}
+		}
+}
