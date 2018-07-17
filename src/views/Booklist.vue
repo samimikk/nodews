@@ -6,6 +6,13 @@
       Loading...
     </div>
 
+    <ul id="example-1">
+        <li v-for="book in books" :key="book.id">
+            {{ book.title }}<br/>
+            {{ book.author }}
+        </li>
+    </ul>
+
   </div>
 </template>
 
@@ -16,18 +23,22 @@ import Axios from 'axios';
 export default {
     data () {
         return {
-            loading: false
+            loading: false,
+            books: null
         }
     },
 
     created () {
-        this.fetchData()
+        this.fetchData();
     },
 
     methods: {
         fetchData () {
             this.loading = true;
-            Axios.get('your_host_goes_here/api/book');
+            Axios.get(process.env.VUE_APP_API_URI+'/api/book').then( (response) => {
+                this.books = response.data;
+                this.loading = false;
+            });
         }
     }
 }
