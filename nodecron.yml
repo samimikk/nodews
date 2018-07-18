@@ -1,0 +1,24 @@
+kind: BuildConfig
+apiVersion: "v1"
+metadata:
+  name: "node-cron" 
+spec:
+  runPolicy: Serial
+  triggers:
+  - type: ImageChange
+  - type: ConfigChange
+  source:
+    git:
+      ref: nodecron
+      uri: https://github.com/mcfizh/nodews
+    type: Git
+  output:
+    to:
+      kind: ImageStreamTag
+      name: nodecron:latest
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nodejs-8-rhel7:latest
+    type: Source
