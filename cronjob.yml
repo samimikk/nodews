@@ -12,7 +12,14 @@ spec:
             parent: "cronjobnode"
         spec:
           containers:
-          - name: nodecron
+          - env:
+            - name: "MONGODB_URL"
+              value: "mongodb://hostname:27017/dbname"
+            - name: "MONGODB_USERNAME"
+              value: ""
+            - name: "MONGODB_PASSWORD"
+              value: ""
+            name: nodecron
             image: ip.goes.here:tcpport/yourusername/nodecron
             command: ["/opt/rh/rh-nodejs8/root/usr/bin/node",  "cron.js"]
           restartPolicy: Never
