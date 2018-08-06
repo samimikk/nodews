@@ -6,9 +6,9 @@
       Loading...
     </div>
 
-    <ul id="example-1">
+    <ul id="booklist">
         <li v-for="book in books" :key="book.id">
-            {{ book.title }}<br/>
+            {{ book.name }}<br/>
             {{ book.author }}
         </li>
     </ul>
