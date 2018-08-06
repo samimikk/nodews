@@ -8,8 +8,12 @@
 
     <ul id="booklist">
         <li v-for="book in books" :key="book.id">
-            {{ book.name }}<br/>
-            {{ book.author }}
+            name: {{ book.name }}<br/>
+            author: {{ book.author }}<br/>
+            isbn: {{ book.isbn }}<br/>
+            desc.: {{ book.description }}<br/>
+            n. pages: {{ book.numOfPages }}<br/>
+            <br/>
         </li>
     </ul>
 

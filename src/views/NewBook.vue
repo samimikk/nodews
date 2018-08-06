@@ -39,12 +39,12 @@ export default {
                 author: this.author,
                 isbn: this.isbn,
                 description: this.description,
-                numofpages: this.numofpages
+                numOfPages: this.numofpages
             };
 
             Axios.post(process.env.VUE_APP_API_URI+'/api/book',book).
-                then( (resp) => {
-                    console.log(resp);
+                then( () => {
+                    this.$router.push('/');
                 });
         }
     }
