@@ -1,0 +1,22 @@
+kind: BuildConfig
+apiVersion: "v1"
+metadata:
+  name: "vuefront-artifact" 
+spec:
+  runPolicy: Serial
+  triggers:
+  - type: ImageChange
+  - type: ConfigChange
+  source:
+    git:
+      ref: front
+      uri: https://github.com/mcfizh/nodews
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: nodejs-8-rhel7:latest
+  output:
+    to:
+      kind: ImageStreamTag
+      name: vuefront-artifact:latest
