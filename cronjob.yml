@@ -1,7 +1,7 @@
 apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
-  name: nodecron
+  name: node-cron
 spec:
   schedule: "*/5 * * * *"  
   jobTemplate:             
@@ -19,8 +19,8 @@ spec:
               value: ""
             - name: "MONGODB_PASSWORD"
               value: ""
-            name: nodecron
-            image: ip.goes.here:tcpport/yourusername/nodecron
+            name: node-cron
+            image: ip.goes.here:tcpport/yourusername/node-cron
             command: ["/opt/rh/rh-nodejs8/root/usr/bin/node",  "cron.js"]
           restartPolicy: Never
 
